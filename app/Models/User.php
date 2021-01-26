@@ -43,6 +43,11 @@ class User extends Authenticatable
 
     public function vehicles()
     {
-        return $this->belongsToMany(Vehicle::class)->withPivot('started_at', 'ended_at');
+        return $this->belongsToMany(Vehicle::class)
+            ->using(UserVehicle::class)
+            ->withPivot([
+                'started_at',
+                'ended_at',
+            ]);
     }
 }

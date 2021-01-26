@@ -57,7 +57,7 @@ Route::get('/', function () {
 
         echo "<ul>";
         foreach ($user->vehicles as $vehicle) {
-            echo "<li>" . $vehicle->brand->name . " $vehicle->name (début: " . $vehicle->pivot->started_at . ", fin: " .$vehicle->pivot->ended_at . ")</li>";
+            echo "<li>" . $vehicle->brand->name . " $vehicle->name (début: " . $vehicle->pivot->started_at->format('d/m/Y') . ", fin: " .$vehicle->pivot->ended_at->format('d/m/Y') . ")</li>";
         }
         echo "</ul>";
         echo "</li>";

@@ -20,6 +20,11 @@ class Vehicle extends Model
 
     public function customers()
     {
-        return $this->belongsToMany(User::class)->withPivot('started_at', 'ended_at');
+        return $this->belongsToMany(User::class)
+            ->using(UserVehicle::class)
+            ->withPivot([
+                'started_at',
+                'ended_at',
+            ]);
     }
 }
