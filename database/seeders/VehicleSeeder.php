@@ -6,7 +6,7 @@ use App\Models\Brand;
 use App\Models\Vehicle;
 use Illuminate\Database\Seeder;
 
-class BrandSeeder extends Seeder
+class VehicleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,9 +15,9 @@ class BrandSeeder extends Seeder
      */
     public function run()
     {
-        Brand::factory()
-            ->count(3)
-            ->has(Vehicle::factory()->count(10))
+        Vehicle::factory()
+            ->count(10)
+            ->for(Brand::all()->random())
             ->create();
     }
 }
