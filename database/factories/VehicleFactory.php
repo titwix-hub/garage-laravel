@@ -2,18 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Brand;
+use App\Models\Vehicle;
 use Faker\Provider\Fakecar;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class BrandFactory extends Factory
+class VehicleFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Brand::class;
+    protected $model = Vehicle::class;
 
     /**
      * Define the model's default state.
@@ -25,8 +25,11 @@ class BrandFactory extends Factory
         $this->faker->addProvider(Fakecar::class);
 
         return [
-            'name' => $this->faker->vehicleBrand,
-            'premium' => $this->faker->boolean,
+            'name' => $this->faker->vehicleModel,
+            'price' => $this->faker->numberBetween(0, 1000),
+            'status' => $this->faker->randomElement(['available', 'locked']),
+            'odometer' => $this->faker->numberBetween(5000, 20000),
+            'type' => $this->faker->vehicleType,
         ];
     }
 }

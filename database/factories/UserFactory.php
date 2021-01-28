@@ -17,10 +17,8 @@ class UserFactory extends Factory
 
     /**
      * Define the model's default state.
-     *
-     * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'name' => $this->faker->name,
@@ -28,6 +26,23 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
+            'score' => 0,
+            'wallet' => $this->faker->numberBetween(0, 10000),
+            'role' => 'customer',
+            'enabled' => $this->faker->boolean(80),
         ];
+    }
+
+    /**
+     * Indique que l'utilisateur est admin
+     */
+    public function admin(): UserFactory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'role' => 'admin',
+                'enabled' => true,
+            ];
+        });
     }
 }
