@@ -27,7 +27,7 @@ class UserFactory extends Factory
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
             'score' => 0,
-            'wallet' => $this->faker->numberBetween(0, 10000),
+            'wallet' => 15000,
             'role' => 'customer',
             'enabled' => $this->faker->boolean(80),
         ];
@@ -43,6 +43,16 @@ class UserFactory extends Factory
                 'role' => 'admin',
                 'enabled' => true,
             ];
+        });
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->update([
+                'score' => $user->vehicles->count(),
+                'wallet' => $user->wallet - $user->vehicles->sum('price'),
+            ]);
         });
     }
 }
