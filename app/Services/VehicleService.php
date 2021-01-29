@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use Exception;
 use App\Models\Brand;
 use App\Models\Vehicle;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class VehicleService
 {
@@ -16,18 +18,24 @@ class VehicleService
         string $type
     ): Vehicle
     {
-        $brand = Brand::find($brandId);
+        try {
+            $brand = Brand::find($brandId);
 
-        $vehicle = new Vehicle([
-            'name' => $name,
-            'price' => $price,
-            'status' => $status,
-            'odometer' => $odometer,
-            'type' => $type,
-        ]);
+            $vehicle = new Vehicle([
+                'name' => $name,
+                'price' => $price,
+                'status' => $status,
+                'odometer' => $odometer,
+                'type' => $type,
+            ]);
 
-        $brand->vehicles()->save($vehicle);
+            $brand->vehicles()->save($vehicle);
 
-        return $vehicle;
+            return $vehicle;
+        } catch (ModelNotFoundException $e) {
+            throw new UnexpectedParameterException("Brand not found ($brandId)");
+        } catch (Exception $e) {
+            throw new UnexpectedParameterException();
+        }
     }
 }
