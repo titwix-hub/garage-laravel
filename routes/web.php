@@ -3,6 +3,7 @@
 use App\Models\User;
 use App\Models\Brand;
 use Illuminate\Http\Request;
+use App\Services\VehicleService;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,26 +18,32 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::any('/vehicles', function (Request $request) {
-    if ($request->has('name')) { // Si j'ai envoyer mes données
-        $vehicleService = new \App\Services\VehicleService();
+    // Si j'ai envoyé mes données
+    if ($request->has('name')) {
+        $vehicleService = new VehicleService();
 
         $vehicle = $vehicleService->saveVehicle(
-            $request->get('name'), // Je récupérer la valeur du champ name
-            // Ajouter les champs nécessaires ...
+            $request->get('brand_id'),
+            $request->get('name'),
+            $request->get('price'),
+            $request->get('status'),
+            $request->get('odometer'),
+            $request->get('type'),
         );
 
-        dd($vehicle);
+        echo '<h1>Notre nouveau véhicule</h1>';
+        echo '<pre>' . $vehicle->toJson(JSON_PRETTY_PRINT) . '</pre>';
     }
 
     // Récupération des marques
-    $brands = [];
+    $brands = Brand::all();
 
     echo "<h1>Ajout d'un véhicule</h1>";
     echo "<form method='get' action='vehicles'>";
     echo "<label>Marque (id)</label>";
     echo "<select name='brand_id'>";
         foreach ($brands as $brand) {
-            echo "<option value='1'>Peugeot</option>"; // A compléter
+            echo "<option value='$brand->id'>$brand->name</option>";
         }
     echo "</select><br/>";
     echo "<label>Modèle</label><input type='text' name='name'/><br/>";

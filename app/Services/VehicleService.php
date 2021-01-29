@@ -2,15 +2,32 @@
 
 namespace App\Services;
 
+use App\Models\Brand;
 use App\Models\Vehicle;
 
 class VehicleService
 {
-    /**
-     * Enregistre un véhicule en base de donnée
-     */
-    public function saveVehicle(): Vehicle
+    public function saveVehicle(
+        int $brandId,
+        string $name,
+        float $price,
+        string $status,
+        int $odometer,
+        string $type
+    ): Vehicle
     {
-        // A vous de jouer !
+        $brand = Brand::find($brandId);
+
+        $vehicle = new Vehicle([
+            'name' => $name,
+            'price' => $price,
+            'status' => $status,
+            'odometer' => $odometer,
+            'type' => $type,
+        ]);
+
+        $brand->vehicles()->save($vehicle);
+
+        return $vehicle;
     }
 }
