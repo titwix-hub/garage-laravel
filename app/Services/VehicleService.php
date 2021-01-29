@@ -5,6 +5,7 @@ namespace App\Services;
 use Exception;
 use App\Models\Brand;
 use App\Models\Vehicle;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class VehicleService
@@ -37,5 +38,15 @@ class VehicleService
         } catch (Exception $e) {
             throw new UnexpectedParameterException();
         }
+    }
+
+    public function getAllVehicles(): Collection
+    {
+        return Vehicle::all();
+    }
+
+    public function getAllAvailableVehicles(): Collection
+    {
+        return Vehicle::where('status', '=', 'available')->get();
     }
 }

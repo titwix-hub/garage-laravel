@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use TypeError;
 use Tests\TestCase;
 use App\Models\Brand;
+use App\Models\Vehicle;
 use App\Services\VehicleService;
 use App\Services\UnexpectedParameterException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -103,5 +104,51 @@ class VehicleServiceTest extends TestCase
             $odometer,
             $type
         );
+    }
+
+    /** @test */
+    public function can_have_all_vehicles()
+    {
+        $expectedVehicles = Vehicle::factory()
+            ->count(3)
+            ->for(Brand::factory()->create())
+            ->create();
+
+        $vehicleService = new VehicleService();
+
+        $vehicles = $vehicleService->getAllVehicles();
+
+        $this->assertCount(3, $vehicles);
+        $this->assertContainsOnlyInstancesOf(Vehicle::class, $vehicles);
+        $this->assertEquals($vehicles[0]->name, $expectedVehicles[0]->name);
+        $this->assertEquals($vehicles[1]->name, $expectedVehicles[1]->name);
+        $this->assertEquals($vehicles[2]->name, $expectedVehicles[2]->name);
+    }
+
+    /** @test */
+    public function can_have_all_available_vehicles()
+    {
+        $expectedAvailableVehicles = Vehicle::factory()
+            ->count(2)
+            ->for(Brand::factory()->create())
+            ->create([
+                'status' => 'available',
+            ]);
+
+        $lockedVehicles = Vehicle::factory()
+            ->count(1)
+            ->for(Brand::factory()->create())
+            ->create([
+                'status' => 'locked',
+            ]);
+
+        $vehicleService = new VehicleService();
+
+        $availableVehicles = $vehicleService->getAllAvailableVehicles();
+
+        $this->assertCount(2, $availableVehicles);
+        $this->assertContainsOnlyInstancesOf(Vehicle::class, $availableVehicles);
+        $this->assertEquals($availableVehicles[0]->name, $expectedAvailableVehicles[0]->name);
+        $this->assertEquals($availableVehicles[1]->name, $expectedAvailableVehicles[1]->name);
     }
 }
