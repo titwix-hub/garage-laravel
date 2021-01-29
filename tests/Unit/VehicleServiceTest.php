@@ -12,11 +12,13 @@ class VehicleServiceTest extends TestCase
     /** @test */
     public function can_save_vehicle()
     {
+        $name = '205';
         // Préparer des données
             // Création d'une marque
             // Les paramètres du véhicule
         // Instancier un VehicleService
         // Utiliser la méthode saveVehicle
+        // Vérifier la présence du record en bdd
     }
 
     /** @test */
@@ -27,5 +29,6 @@ class VehicleServiceTest extends TestCase
     /** @test */
     public function cant_save_vehicle_without_good_params()
     {
+        $price = 'lowcost';
     }
 }
