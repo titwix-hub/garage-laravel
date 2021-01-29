@@ -18,4 +18,14 @@ class VehicleServiceTest extends TestCase
         // Instancier un VehicleService
         // Utiliser la méthode saveVehicle
     }
+
+    /** @test */
+    public function cant_save_vehicle_without_existing_brand()
+    {
+    }
+
+    /** @test */
+    public function cant_save_vehicle_without_good_params()
+    {
+    }
 }
