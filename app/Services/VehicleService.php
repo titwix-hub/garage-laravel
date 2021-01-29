@@ -19,7 +19,7 @@ class VehicleService
     ): Vehicle
     {
         try {
-            $brand = Brand::find($brandId);
+            $brand = Brand::findOrFail($brandId);
 
             $vehicle = new Vehicle([
                 'name' => $name,
