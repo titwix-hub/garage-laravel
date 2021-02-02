@@ -17,6 +17,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+   return view('welcome');
+});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::any('/vehicles', function (Request $request) {
     // Si j'ai envoyé mes données
     if ($request->has('name')) {
@@ -42,9 +50,9 @@ Route::any('/vehicles', function (Request $request) {
     echo "<form method='get' action='vehicles'>";
     echo "<label>Marque (id)</label>";
     echo "<select name='brand_id'>";
-        foreach ($brands as $brand) {
-            echo "<option value='$brand->id'>$brand->name</option>";
-        }
+    foreach ($brands as $brand) {
+        echo "<option value='$brand->id'>$brand->name</option>";
+    }
     echo "</select><br/>";
     echo "<label>Modèle</label><input type='text' name='name'/><br/>";
     echo "<label>Prix</label><input type='text' name='price'/><br/>";
@@ -55,7 +63,7 @@ Route::any('/vehicles', function (Request $request) {
     echo '</form>';
 });
 
-Route::get('/', function () {
+Route::get('/demo', function () {
 
     $users = User::all();
 
