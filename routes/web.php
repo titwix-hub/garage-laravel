@@ -14,14 +14,9 @@ use App\Http\Controllers\VehicleController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-   return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [VehicleController::class, 'index'])->name('vehicles.index');
 
 Route::group(['prefix' => 'admin', 'middleware' => [IsAdmin::class]], function () {
     Route::get('/vehicles/create', [VehicleController::class, 'create'])->name('vehicles.create');

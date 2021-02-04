@@ -50,4 +50,9 @@ class User extends Authenticatable
                 'ended_at',
             ]);
     }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
 }

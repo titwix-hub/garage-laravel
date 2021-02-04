@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\Vehicle;
+use Illuminate\Http\Request;
 use App\Services\VehicleService;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CreateVehicleRequest;
@@ -17,6 +19,13 @@ class VehicleController extends Controller
     public function __construct(VehicleService $vehicleService)
     {
         $this->vehicleService = $vehicleService;
+    }
+
+    public function index(Request $request)
+    {
+        $vehicles = Vehicle::with('brand')->get();
+
+        return view('vehicles.index', ['vehicles' => $vehicles]);
     }
 
     public function create()
