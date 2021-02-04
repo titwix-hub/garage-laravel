@@ -6,7 +6,7 @@
            <div class="col-lg-2-12">
                <div class="mb-5">
                    @can ('create-vehicle')
-                       <a class="btn btn-primary" href="{{ route('vehicles.create') }}">Ajouter un véhiculer</a>
+                       <a class="btn btn-primary" href="{{ route('vehicles.create') }}">Ajouter un véhicule</a>
                    @endcan
                </div>
            </div>

@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 
 /*
@@ -17,6 +18,13 @@ use App\Http\Controllers\VehicleController;
 Auth::routes();
 
 Route::get('/', [VehicleController::class, 'index'])->name('vehicles.index');
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('/settings', [UserController::class, 'settings'])->name('user.settings');
+        Route::put('/settings/money', [UserController::class, 'addMoney'])->name('user.add.money');
+    });
+});
 
 Route::group(['prefix' => 'admin', 'middleware' => [IsAdmin::class]], function () {
     Route::get('/vehicles/create', [VehicleController::class, 'create'])->name('vehicles.create');
