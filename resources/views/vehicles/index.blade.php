@@ -19,6 +19,7 @@
                        <div class="card-body">
                            <p><span>{{ $vehicle->name }}</span> <span>{{ $vehicle->brand->name }}</span></p>
                            <p>{{ $vehicle->odometer }} Km - {{ $vehicle->price }} €</p>
+                            <a href="{{ route('vehicles.reserved', $vehicle) }}" class="btn btn-primary">Réserver</a>
                        </div>
                    </div>
                </div>

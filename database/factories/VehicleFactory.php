@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Vehicle;
+use App\Services\VehiculeConstantes;
 use Faker\Provider\Fakecar;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -24,10 +25,12 @@ class VehicleFactory extends Factory
     {
         $this->faker->addProvider(Fakecar::class);
 
+        $statues = array_values(VehiculeConstantes::STATUES);
+
         return [
             'name' => $this->faker->vehicleModel,
             'price' => $this->faker->numberBetween(0, 1000),
-            'status' => $this->faker->randomElement(['available', 'locked']),
+            'status' => $this->faker->randomElement($statues),
             'odometer' => $this->faker->numberBetween(5000, 20000),
             'type' => $this->faker->vehicleType,
         ];

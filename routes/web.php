@@ -24,6 +24,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/settings', [UserController::class, 'settings'])->name('user.settings');
         Route::put('/settings/money', [UserController::class, 'addMoney'])->name('user.add.money');
     });
+    Route::group(['prefix' => 'vehicles'], function () {
+        Route::get('/{id}/reserved', [VehicleController::class, 'reserved'])->name('vehicles.reserved');
+        Route::post('/{vehicle}/reserved', [VehicleController::class, 'storeReserved'])->name('vehicules.reserved.store');
+    });
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => [IsAdmin::class]], function () {
