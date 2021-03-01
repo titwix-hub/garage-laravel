@@ -73,7 +73,7 @@ class VehicleController extends Controller
         } catch (UserHasNotEnoughMoneyException $exception) {
             return back()->withErrors(['error' => "Vous n'avez pas asser d'argent pour louer cette voiture sur cette durée"]);
         } catch(CannotReservedVehicleLockedException $exception) {
-            abort(403);
+            return back()->withErrors(['error' => 'Le véhicule ne peut pas être reservé pendant cette période']);
         }
     }
 }

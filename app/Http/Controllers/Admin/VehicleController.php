@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\updateStatusRequest;
 use App\Models\Vehicle;
+use App\Http\Controllers\Controller;
 use App\Services\VehiculeConstantes;
-use Illuminate\Http\Request;
+use App\Http\Requests\updateStatusRequest;
 
 class VehicleController extends Controller
 {
@@ -23,7 +22,7 @@ class VehicleController extends Controller
 
         $statues = VehiculeConstantes::STATUES;
 
-        return view('admin.vehicle.edit', ['vehicle' => $vehicle, 'statues'=>$statues]);
+        return view('admin.vehicle.edit', ['vehicle' => $vehicle, 'statues' => $statues]);
     }
 
     public function update($id, UpdateStatusRequest $request)
@@ -34,6 +33,5 @@ class VehicleController extends Controller
         $vehicle->save();
 
         return redirect()->route('admin.vehicle.index');
-
     }
 }

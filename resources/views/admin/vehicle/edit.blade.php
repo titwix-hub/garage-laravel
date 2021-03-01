@@ -11,7 +11,7 @@
             <label for="Status">Status</label>
             <select name="status" value="{{$vehicle->status}}" id="Status">
                 @foreach($statues as $statue)
-                    <option value="{{$statue}}">{{$statue}}</option>
+                    <option value="{{$statue}}" {{ $vehicle->status === $statue ? "selected='selected'" : '' }} >{{$statue}}</option>
                 @endforeach
             </select>
             <input type="submit" class="btn btn-success">
