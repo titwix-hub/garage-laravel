@@ -23,6 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'user'], function () {
         Route::get('/settings', [UserController::class, 'settings'])->name('user.settings');
         Route::put('/settings/money', [UserController::class, 'addMoney'])->name('user.add.money');
+        Route::get('/reservations', [UserController::class, 'reservations'])->name('user.show.reservations');
     });
     Route::group(['prefix' => 'vehicles'], function () {
         Route::get('/{id}/reserved', [VehicleController::class, 'reserved'])->name('vehicles.reserved');

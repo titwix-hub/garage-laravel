@@ -75,10 +75,6 @@ class VehicleService
             'started_at' => $requestParameters['starting_at'],
             'ended_at' => $requestParameters['ending_at'],
         ]);
-
-        $vehicle->update([
-            'status' => VehiculeConstantes::STATUES['LOCKED'],
-        ]);
     }
 
     private function getPrice(array $requestParameters, Vehicle $vehicle): float
