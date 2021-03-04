@@ -23,7 +23,7 @@ class VehicleFactory extends Factory
      */
     public function definition()
     {
-        $this->faker->addProvider(Fakecar::class);
+        $this->faker->addProvider(Fakecar::class); 
 
         $statues = array_values(VehiculeConstantes::STATUES);
 
